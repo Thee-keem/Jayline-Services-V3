@@ -1,0 +1,401 @@
+{
+  "name": "Jay Line Services - Project Scaling Roadmap",
+  "desc": "Comprehensive roadmap for improving technical quality, UX, features, scalability, and content reach for Jay Line Services website",
+  "lists": [
+    {
+      "name": "Technical Quality",
+      "cards": [
+        {
+          "name": "Setup ESLint & Prettier Configuration",
+          "desc": "Implement strict code quality standards with automated formatting and linting rules",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "Setup Tasks",
+              "checkItems": [
+                {
+                  "name": "Configure ESLint with React, TypeScript, and accessibility rules"
+                },
+                { "name": "Setup Prettier with consistent formatting rules" },
+                { "name": "Add pre-commit hooks with Husky and lint-staged" },
+                { "name": "Configure VS Code settings for team consistency" },
+                { "name": "Add lint and format scripts to package.json" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Reorganize Components by Domain",
+          "desc": "Restructure codebase with clear separation of concerns and domain-driven organization",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "Restructuring Tasks",
+              "checkItems": [
+                {
+                  "name": "Create domain folders: /layout, /ui, /business, /forms"
+                },
+                { "name": "Move Header/Footer to /layout" },
+                { "name": "Move AnimatedText/Counter to /ui" },
+                { "name": "Create /business for service-specific components" },
+                { "name": "Update all import paths and barrel exports" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Implement Lazy Loading & Code Splitting",
+          "desc": "Optimize bundle size and loading performance with strategic code splitting",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "Optimization Tasks",
+              "checkItems": [
+                { "name": "Implement React.lazy for page components" },
+                { "name": "Add Suspense boundaries with loading states" },
+                { "name": "Split vendor bundles in Vite config" },
+                { "name": "Implement dynamic imports for heavy components" },
+                { "name": "Add bundle analyzer to monitor sizes" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Optimize Images & Animations",
+          "desc": "Improve performance through image optimization and animation efficiency",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "Performance Tasks",
+              "checkItems": [
+                { "name": "Add image optimization with vite-plugin-imagemin" },
+                { "name": "Implement WebP/AVIF format support" },
+                { "name": "Add lazy loading for images" },
+                {
+                  "name": "Optimize Framer Motion animations with will-change"
+                },
+                { "name": "Implement reduced motion preferences" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "UX Improvements",
+      "cards": [
+        {
+          "name": "Dark/Light Mode Toggle",
+          "desc": "Implement comprehensive theme switching with user preference persistence",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "Theme Implementation",
+              "checkItems": [
+                { "name": "Setup Tailwind dark mode configuration" },
+                { "name": "Create theme context and provider" },
+                { "name": "Design and implement theme toggle component" },
+                { "name": "Add system preference detection" },
+                { "name": "Persist theme choice in localStorage" },
+                { "name": "Update all components with dark mode variants" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mobile Responsiveness Audit",
+          "desc": "Comprehensive mobile experience optimization and testing",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "Mobile Optimization",
+              "checkItems": [
+                { "name": "Audit all breakpoints (sm, md, lg, xl, 2xl)" },
+                { "name": "Optimize touch targets (minimum 44px)" },
+                { "name": "Improve mobile navigation UX" },
+                { "name": "Test on various device sizes" },
+                { "name": "Optimize mobile performance" },
+                { "name": "Add mobile-specific animations" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Accessibility Improvements",
+          "desc": "Ensure WCAG 2.1 AA compliance and excellent accessibility experience",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "A11y Implementation",
+              "checkItems": [
+                { "name": "Add semantic HTML structure throughout" },
+                { "name": "Implement proper ARIA labels and roles" },
+                {
+                  "name": "Ensure keyboard navigation for all interactive elements"
+                },
+                { "name": "Add focus management and visible focus indicators" },
+                { "name": "Test with screen readers" },
+                { "name": "Ensure color contrast ratios meet WCAG standards" },
+                { "name": "Add skip navigation links" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Loading States & Error Handling",
+          "desc": "Implement comprehensive loading states and graceful error handling",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "UX Polish",
+              "checkItems": [
+                { "name": "Create skeleton loading components" },
+                { "name": "Add error boundary components" },
+                { "name": "Implement retry mechanisms" },
+                { "name": "Add toast notifications system" },
+                { "name": "Create 404 and error pages" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Features",
+      "cards": [
+        {
+          "name": "Functional Contact Form",
+          "desc": "Implement working contact form with backend integration and validation",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "Form Implementation",
+              "checkItems": [
+                { "name": "Choose between Formspree and Supabase integration" },
+                { "name": "Add form validation with react-hook-form" },
+                { "name": "Implement email notifications" },
+                { "name": "Add spam protection (reCAPTCHA)" },
+                { "name": "Create success/error feedback states" },
+                { "name": "Add form analytics tracking" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Analytics Integration",
+          "desc": "Implement privacy-focused analytics with Plausible or Google Analytics",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "Analytics Setup",
+              "checkItems": [
+                { "name": "Choose between Plausible and Google Analytics" },
+                { "name": "Implement GDPR-compliant tracking" },
+                { "name": "Add custom event tracking" },
+                { "name": "Setup conversion goal tracking" },
+                { "name": "Create analytics dashboard access" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SEO Optimization",
+          "desc": "Comprehensive SEO implementation for better search visibility",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "SEO Implementation",
+              "checkItems": [
+                { "name": "Add React Helmet for dynamic meta tags" },
+                { "name": "Implement Open Graph and Twitter Card meta" },
+                { "name": "Generate XML sitemap" },
+                { "name": "Create robots.txt file" },
+                { "name": "Add structured data (JSON-LD)" },
+                { "name": "Optimize page titles and descriptions" },
+                { "name": "Add canonical URLs" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Expand Storybook Coverage",
+          "desc": "Complete Storybook documentation with comprehensive component coverage",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "Documentation Tasks",
+              "checkItems": [
+                { "name": "Document all existing components" },
+                { "name": "Add interaction testing with @storybook/test" },
+                { "name": "Create design system documentation" },
+                { "name": "Add accessibility testing addon" },
+                { "name": "Setup visual regression testing" },
+                { "name": "Create component usage guidelines" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Scalability",
+      "cards": [
+        {
+          "name": "Folder Structure Optimization",
+          "desc": "Implement scalable folder structure following domain-driven design principles",
+          "labels": [{ "name": "High Priority", "color": "red" }],
+          "checklists": [
+            {
+              "name": "Structure Implementation",
+              "checkItems": [
+                { "name": "Create feature-based folder structure" },
+                { "name": "Implement barrel exports for clean imports" },
+                { "name": "Setup absolute imports with path mapping" },
+                { "name": "Create shared utilities and constants" },
+                { "name": "Organize assets by type and usage" },
+                { "name": "Document folder structure conventions" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PWA Implementation",
+          "desc": "Add Progressive Web App capabilities for enhanced user experience",
+          "labels": [{ "name": "Low Priority", "color": "green" }],
+          "checklists": [
+            {
+              "name": "PWA Features",
+              "checkItems": [
+                { "name": "Add service worker with Workbox" },
+                { "name": "Create web app manifest" },
+                { "name": "Implement offline functionality" },
+                { "name": "Add install prompt" },
+                { "name": "Setup push notifications (optional)" },
+                { "name": "Add app icons for all platforms" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CMS Integration Planning",
+          "desc": "Prepare architecture for headless CMS integration (Sanity/Strapi/Headless WP)",
+          "labels": [{ "name": "Low Priority", "color": "green" }],
+          "checklists": [
+            {
+              "name": "CMS Preparation",
+              "checkItems": [
+                { "name": "Research and choose CMS solution" },
+                { "name": "Design content models and schemas" },
+                { "name": "Create data fetching abstractions" },
+                { "name": "Plan content migration strategy" },
+                { "name": "Setup development/staging environments" },
+                { "name": "Document content management workflows" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "State Management Setup",
+          "desc": "Implement scalable state management solution for complex data flows",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "State Management",
+              "checkItems": [
+                {
+                  "name": "Choose state management solution (Zustand/Redux Toolkit)"
+                },
+                { "name": "Setup global state structure" },
+                { "name": "Implement data caching strategies" },
+                { "name": "Add optimistic updates" },
+                { "name": "Setup state persistence" },
+                { "name": "Add development tools integration" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Content & Reach",
+      "cards": [
+        {
+          "name": "Multilingual Support (i18n)",
+          "desc": "Implement internationalization for English and additional languages",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "i18n Implementation",
+              "checkItems": [
+                { "name": "Setup react-i18next configuration" },
+                { "name": "Create translation files for English" },
+                { "name": "Add Swahili translations" },
+                { "name": "Implement language switcher component" },
+                { "name": "Add RTL support for future languages" },
+                { "name": "Setup translation management workflow" },
+                { "name": "Add language detection and persistence" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Blog/Insights Section",
+          "desc": "Add blog functionality for SEO and thought leadership content",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "Blog Development",
+              "checkItems": [
+                { "name": "Design blog layout and templates" },
+                { "name": "Implement blog post components" },
+                { "name": "Add blog navigation and filtering" },
+                { "name": "Create RSS feed generation" },
+                { "name": "Add social sharing buttons" },
+                { "name": "Implement blog SEO optimization" },
+                { "name": "Setup content authoring workflow" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Content Strategy & SEO Content",
+          "desc": "Develop comprehensive content strategy and create SEO-optimized content",
+          "labels": [{ "name": "Medium Priority", "color": "yellow" }],
+          "checklists": [
+            {
+              "name": "Content Development",
+              "checkItems": [
+                { "name": "Conduct keyword research for HR industry in Kenya" },
+                { "name": "Create content calendar and strategy" },
+                { "name": "Write SEO-optimized service pages" },
+                { "name": "Develop case studies and success stories" },
+                {
+                  "name": "Create downloadable resources (whitepapers, guides)"
+                },
+                { "name": "Add client testimonials and reviews" },
+                { "name": "Implement local SEO optimization" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Social Media Integration",
+          "desc": "Integrate social media presence and sharing capabilities",
+          "labels": [{ "name": "Low Priority", "color": "green" }],
+          "checklists": [
+            {
+              "name": "Social Integration",
+              "checkItems": [
+                { "name": "Add social media feed integration" },
+                { "name": "Implement social sharing buttons" },
+                { "name": "Create social media content templates" },
+                { "name": "Add social proof elements" },
+                { "name": "Setup social media analytics tracking" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
