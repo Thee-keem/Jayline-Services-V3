@@ -262,8 +262,6 @@ const Contact = () => {
                       href="https://maps.app.goo.gl/sYV3vWHF6VxXPLSH8?g_st=aw"
                       target="_blank"
                       rel="noopener noreferrer"
-                          : item.title === 'Phone Numbers'
-                          ? `tel:${line.replace(/\s/g, '')}`
                       className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors focus-visible-ring"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
