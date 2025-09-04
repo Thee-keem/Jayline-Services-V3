@@ -3,6 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import { Header, Footer } from '../components/layout';
 import { ScrollProgress } from '../components/ui';
+import { AIChatWidget } from '../components/ai';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -38,6 +39,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           {children}
         </main>
         <Footer />
+        <AIChatWidget />
       </div>
     </ErrorBoundary>
   );
