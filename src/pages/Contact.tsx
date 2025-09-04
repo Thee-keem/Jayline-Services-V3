@@ -339,8 +339,8 @@ const Contact = () => {
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
                 >
-                    className="bg-green-600 dark:bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors inline-block focus-visible-ring"
-                    className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors focus-visible-ring"
+                  <motion.h3
+                    className="text-lg font-semibold text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors focus-visible-ring mb-3"
                     whileHover={{ color: '#059669' }}
                   >
                     {faq.question}
