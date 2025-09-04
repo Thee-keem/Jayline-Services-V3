@@ -5,11 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import App from './App';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { analytics } from './lib/analytics';
 import './index.css';
-
-// Initialize analytics
-analytics.init('plausible'); // Change to 'google' if using GA
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

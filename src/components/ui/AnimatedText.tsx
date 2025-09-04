@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+import { getReducedMotionPreference } from '../../utils/performance';
+
 export type AnimationType = 'words' | 'letters' | 'lines';
 
 interface AnimatedTextProps {
@@ -16,9 +18,9 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
   text,
   className = '',
   delay = 0,
-  duration = 0.6,
+  duration = 0.2,
   animationType = 'words',
-  staggerDelay = 0.08,
+  staggerDelay = 0.02,
 }) => {
   const getTextSegments = () => {
     switch (animationType) {
@@ -39,8 +41,8 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: staggerDelay,
-        delayChildren: delay,
+        staggerChildren: getReducedMotionPreference() ? 0 : Math.min(staggerDelay, 0.02),
+        delayChildren: getReducedMotionPreference() ? 0 : Math.min(delay, 0.1),
       },
     },
   };
@@ -48,16 +50,13 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
   const child = {
     hidden: {
       opacity: 0,
-      y: 20,
-      rotateX: -90,
+      y: getReducedMotionPreference() ? 0 : 10,
     },
     visible: {
       opacity: 1,
       y: 0,
-      rotateX: 0,
       transition: {
-        duration,
-        ease: [0.6, -0.05, 0.01, 0.99],
+        duration: getReducedMotionPreference() ? 0 : Math.min(duration, 0.2),
       },
     },
   };

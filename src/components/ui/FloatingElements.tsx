@@ -7,7 +7,7 @@ interface FloatingElementsProps {
 }
 
 const FloatingElements: React.FC<FloatingElementsProps> = ({
-  count = 6,
+  count = 3,
   className = '',
 }) => {
   const elements = Array.from({ length: count }, (_, i) => i);
@@ -20,19 +20,17 @@ const FloatingElements: React.FC<FloatingElementsProps> = ({
       {elements.map(i => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-green-200 dark:bg-green-400 rounded-full opacity-20"
+          className="absolute w-1 h-1 bg-green-200 dark:bg-green-400 rounded-full opacity-10"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
           }}
           animate={{
-            y: [0, -30, 0],
-            x: [0, Math.random() * 20 - 10, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.5, 0.2],
+            y: [0, -10, 0],
+            opacity: [0.1, 0.2, 0.1],
           }}
           transition={{
-            duration: 4 + Math.random() * 2,
+            duration: 6 + Math.random() * 2,
             repeat: Infinity,
             ease: 'easeInOut',
             delay: Math.random() * 2,

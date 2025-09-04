@@ -1,68 +1,60 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-import { Header, Footer } from './components/layout';
-import { ScrollProgress } from './components/ui';
+import MainLayout from './layouts/MainLayout';
 import { useScrollToTop } from './hooks/useScrollToTop';
-import { useAnalytics } from './lib/analytics';
 
-// Lazy load pages for better performance
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const Services = lazy(() => import('./pages/Services'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Blog = lazy(() => import('./pages/Blog'));
-const BlogPost = lazy(() => import('./pages/BlogPost'));
+// Preload critical pages and lazy load others
+const Home = lazy(() => 
+  import('./pages/Home').then(module => ({ default: module.default }))
+);
+const About = lazy(() => 
+  import('./pages/About').then(module => ({ default: module.default }))
+);
+const Services = lazy(() => 
+  import('./pages/Services').then(module => ({ default: module.default }))
+);
+const Contact = lazy(() => 
+  import('./pages/Contact').then(module => ({ default: module.default }))
+);
+const Blog = lazy(() => 
+  import('./pages/Blog').then(module => ({ default: module.default }))
+);
+const BlogPost = lazy(() => 
+  import('./pages/BlogPost').then(module => ({ default: module.default }))
+);
 
-// Loading component
+// Enhanced loading component with skeleton
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
-    <motion.div
-      className="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full"
-      animate={{ rotate: 360 }}
-      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-    />
+  <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+    <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="text-center">
+        <div className="w-8 h-8 border-2 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-gray-600 dark:text-gray-300">Loading...</p>
+      </div>
+    </div>
   </div>
 );
 
 function App() {
   const location = useLocation();
-  const { trackPageView } = useAnalytics();
 
   useScrollToTop();
 
-  // Track page views
-  React.useEffect(() => {
-    trackPageView(location.pathname);
-  }, [location.pathname, trackPageView]);
-
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      <ScrollProgress />
-      <Header />
-      <AnimatePresence mode="wait">
-        <motion.main
-          key={location.pathname}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] }}
-        >
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-            </Routes>
-          </Suspense>
-        </motion.main>
-      </AnimatePresence>
-      <Footer />
-    </div>
+    <MainLayout>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+        </Routes>
+      </Suspense>
+    </MainLayout>
   );
 }
 

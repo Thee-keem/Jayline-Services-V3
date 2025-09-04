@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { createOptimizedObserver } from '../utils/performance';
+
 interface UseIntersectionObserverProps {
   threshold?: number;
   rootMargin?: string;
@@ -8,7 +10,7 @@ interface UseIntersectionObserverProps {
 
 export const useIntersectionObserver = ({
   threshold = 0.1,
-  rootMargin = '0px',
+  rootMargin = '100px',
   triggerOnce = true,
 }: UseIntersectionObserverProps = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);

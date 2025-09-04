@@ -53,10 +53,9 @@ const Contact = () => {
               variants={staggerContainer}
             >
               <motion.div variants={fadeInUp}>
-                <AnimatedText
-                  text="Contact Us"
-                  className="text-5xl font-bold mb-6"
-                />
+                <h1 className="text-5xl font-bold mb-6">
+                  <AnimatedText text="Contact Us" />
+                </h1>
               </motion.div>
               <motion.p
                 className="text-xl text-green-100 dark:text-green-200 max-w-3xl mx-auto"
@@ -263,7 +262,9 @@ const Contact = () => {
                       href="https://maps.app.goo.gl/sYV3vWHF6VxXPLSH8?g_st=aw"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-green-600 dark:bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors inline-block"
+                          : item.title === 'Phone Numbers'
+                          ? `tel:${line.replace(/\s/g, '')}`
+                      className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors focus-visible-ring"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -340,8 +341,8 @@ const Contact = () => {
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <motion.h3
-                    className="text-lg font-semibold text-gray-900 dark:text-white mb-3"
+                    className="bg-green-600 dark:bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors inline-block focus-visible-ring"
+                    className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors focus-visible-ring"
                     whileHover={{ color: '#059669' }}
                   >
                     {faq.question}

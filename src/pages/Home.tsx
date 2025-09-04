@@ -68,10 +68,9 @@ const Home = () => {
                 animate={heroInView ? 'visible' : 'hidden'}
                 variants={fadeInLeft}
               >
-                <AnimatedText
-                  text="Your Trusted HR Partner in Kenya"
-                  className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight"
-                />
+                <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                  <AnimatedText text="Your Trusted HR Partner in Kenya" />
+                </h1>
                 <motion.p
                   className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed"
                   variants={fadeInUp}
@@ -84,14 +83,14 @@ const Home = () => {
                   variants={fadeInUp}
                   transition={{ delay: 0.4 }}
                 >
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
+                  <div className="flex flex-col gap-4 w-full">
                     <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <Link
                         to="/services"
-                        className="bg-green-600 dark:bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors flex items-center justify-center min-w-[220px]"
+                        className="bg-green-600 dark:bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors flex items-center justify-center w-full"
                       >
                         Explore Our Services
                         <ArrowRight className="w-5 h-5 ml-2" />
@@ -103,7 +102,7 @@ const Home = () => {
                     >
                       <Link
                         to="/contact"
-                        className="border-2 border-green-600 dark:border-green-500 text-green-600 dark:text-green-400 px-8 py-4 rounded-lg font-semibold hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors text-center min-w-[220px]"
+                        className="border-2 border-green-600 dark:border-green-500 text-green-600 dark:text-green-400 px-8 py-4 rounded-lg font-semibold hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors flex items-center justify-center w-full"
                       >
                         Get Free Consultation
                       </Link>
@@ -249,7 +248,16 @@ const Home = () => {
                     <motion.div whileHover={{ x: 5 }}>
                       <Link
                         to="/services"
-                        className="text-green-600 dark:text-green-400 font-semibold hover:text-green-700 dark:hover:text-green-300 flex items-center"
+                        onClick={() => {
+                          const sectionId = index === 0 ? 'hr-solutions' : index === 1 ? 'manpower-employment-services' : 'financial-advisory-services';
+                          setTimeout(() => {
+                            const element = document.getElementById(sectionId);
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                          }, 100);
+                        }}
+                        className="text-green-600 dark:text-green-400 font-semibold hover:text-green-700 dark:hover:text-green-300 flex items-center focus-visible-ring"
                       >
                         Learn More <ArrowRight className="w-4 h-4 ml-1" />
                       </Link>
@@ -271,7 +279,7 @@ const Home = () => {
                 >
                   <Link
                     to="/services"
-                    className="bg-green-600 dark:bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors inline-flex items-center"
+                    className="bg-green-600 dark:bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors inline-flex items-center focus-visible-ring"
                   >
                     View All Services
                     <ArrowRight className="w-5 h-5 ml-2" />
@@ -372,7 +380,7 @@ const Home = () => {
                       >
                         <motion.div
                           className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mr-4 flex-shrink-0"
-                          whileHover={{ rotate: 5, scale: 1.1 }}
+                          className="block border-2 border-green-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 dark:hover:bg-green-600 transition-colors text-center focus-visible-ring"
                         >
                           <item.icon className="w-6 h-6 text-green-600 dark:text-green-400" />
                         </motion.div>

@@ -110,11 +110,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
               {...register('name')}
               type="text"
               id="name"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus-visible-ring transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="Your full name"
               whileFocus={{ scale: 1.02 }}
               aria-invalid={errors.name ? 'true' : 'false'}
               aria-describedby={errors.name ? 'name-error' : undefined}
+              aria-required="true"
             />
             {errors.name && (
               <p
@@ -137,11 +138,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
               {...register('email')}
               type="email"
               id="email"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus-visible-ring transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="your@email.com"
               whileFocus={{ scale: 1.02 }}
               aria-invalid={errors.email ? 'true' : 'false'}
               aria-describedby={errors.email ? 'email-error' : undefined}
+              aria-required="true"
             />
             {errors.email && (
               <p
@@ -166,7 +168,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
               {...register('phone')}
               type="tel"
               id="phone"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus-visible-ring transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="+254 XXX XXX XXX"
               whileFocus={{ scale: 1.02 }}
             />
@@ -183,7 +185,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
               {...register('company')}
               type="text"
               id="company"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus-visible-ring transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="Your company name"
               whileFocus={{ scale: 1.02 }}
             />
@@ -200,7 +202,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
           <motion.select
             {...register('service')}
             id="service"
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus-visible-ring transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             whileFocus={{ scale: 1.02 }}
           >
             <option value="">Select a service</option>
@@ -226,11 +228,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
             {...register('message')}
             id="message"
             rows={5}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus-visible-ring transition-all resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             placeholder="Tell us about your requirements..."
             whileFocus={{ scale: 1.02 }}
             aria-invalid={errors.message ? 'true' : 'false'}
             aria-describedby={errors.message ? 'message-error' : undefined}
+            aria-required="true"
           />
           {errors.message && (
             <p
@@ -245,10 +248,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
         <motion.button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-green-600 text-white py-4 rounded-lg font-semibold hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-green-600 text-white py-4 rounded-lg font-semibold hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed focus-visible-ring"
           variants={fadeInUp}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
+          aria-describedby="form-submit-help"
         >
           <AnimatePresence mode="wait">
             {isSubmitting ? (
@@ -280,6 +284,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
             )}
           </AnimatePresence>
         </motion.button>
+        
+        <p id="form-submit-help" className="sr-only">
+          Submit the contact form to send your message to Jay Line Services
+        </p>
       </motion.form>
     </div>
   );

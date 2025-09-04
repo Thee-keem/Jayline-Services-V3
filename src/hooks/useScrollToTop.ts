@@ -5,10 +5,7 @@ export const useScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
+    // Immediate scroll to top without animation for better UX
+    window.scrollTo(0, 0);
   }, [pathname]);
 };

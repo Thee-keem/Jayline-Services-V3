@@ -17,7 +17,7 @@ interface AnimatedCounterProps {
 const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   end,
   start = 0,
-  duration = 2000,
+  duration = 1000,
   suffix = '',
   prefix = '',
   separator = '',
@@ -25,7 +25,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   decimals = 0,
 }) => {
   const [count, setCount] = useState(start);
-  const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.5 });
+  const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.3 });
 
   useEffect(() => {
     if (!isIntersecting) return;
@@ -37,9 +37,8 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
       if (!startTime) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
 
-      // Easing function for smooth animation
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-      const currentValue = start + easeOutCubic * (end - start);
+      // Simple linear animation for better performance
+      const currentValue = start + progress * (end - start);
 
       setCount(Number(currentValue.toFixed(decimals)));
 
@@ -68,11 +67,11 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, scale: 0.5 }}
+      initial={{ opacity: 0 }}
       animate={
-        isIntersecting ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
+        isIntersecting ? { opacity: 1 } : { opacity: 0 }
       }
-      transition={{ duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] }}
+      transition={{ duration: 0.2 }}
       role="status"
       aria-live="polite"
       aria-label={`Counter: ${prefix}${formatNumber(count)}${suffix}`}

@@ -21,6 +21,7 @@
       "@/components/*": ["./src/components/*"],
       "@/ui/*": ["./src/components/ui/*"],
       "@/layout/*": ["./src/components/layout/*"],
+      "@/layouts/*": ["./src/layouts/*"],
       "@/sections/*": ["./src/components/sections/*"],
       "@/forms/*": ["./src/components/forms/*"],
       "@/hooks/*": ["./src/hooks/*"],

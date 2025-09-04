@@ -1,76 +1,74 @@
 // Animation utilities and configurations
-export const easeInOutCubic = (t: number): number => {
-  return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+import { getReducedMotionPreference } from './performance';
+
+// Check for reduced motion preference
+const shouldReduceMotion = () => {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 };
 
-export const lerp = (start: number, end: number, factor: number): number => {
-  return start + (end - start) * factor;
+// Optimize animations based on user preferences
+const getOptimizedDuration = (duration: number): number => {
+  return shouldReduceMotion() ? 0 : Math.min(duration, 0.3);
 };
 
-export const mapRange = (
-  value: number,
-  inMin: number,
-  inMax: number,
-  outMin: number,
-  outMax: number
-): number => {
-  return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
-};
-
-export const clamp = (value: number, min: number, max: number): number => {
-  return Math.min(Math.max(value, min), max);
+const getOptimizedTransition = (transition: any) => {
+  if (shouldReduceMotion()) {
+    return { duration: 0 };
+  }
+  return { ...transition, duration: Math.min(transition.duration || 0.3, 0.3) };
 };
 
 // Framer Motion variants
 export const fadeInUp = {
   hidden: {
     opacity: 0,
-    y: 60,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    y: 20,
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
 };
 
 export const fadeInLeft = {
   hidden: {
     opacity: 0,
-    x: -60,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    x: -20,
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
 };
 
 export const fadeInRight = {
   hidden: {
     opacity: 0,
-    x: 60,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    x: 20,
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
 };
 
 export const scaleIn = {
   hidden: {
     opacity: 0,
-    scale: 0.8,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    scale: 0.95,
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
 };
 
@@ -79,8 +77,8 @@ export const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
+      staggerChildren: shouldReduceMotion() ? 0 : 0.02,
+      delayChildren: shouldReduceMotion() ? 0 : 0.02,
     },
   },
 };
@@ -88,12 +86,12 @@ export const staggerContainer = {
 export const slideInFromBottom = {
   hidden: {
     opacity: 0,
-    y: 100,
-    transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
+    y: 30,
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: getOptimizedTransition({ duration: 0.2 }),
   },
 };
