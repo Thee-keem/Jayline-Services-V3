@@ -1,12 +1,91 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Users, Target, TrendingUp, GraduationCap, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Users, Target, TrendingUp, GraduationCap, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { fadeInUp, scaleIn, staggerContainer } from '../../utils/animations';
-import { Carousel } from '../ui';
+import { fadeInUp, staggerContainer } from '../../utils/animations';
+
+interface ServiceItem {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const services: ServiceItem[] = [
+  {
+    icon: Users,
+    title: 'Designs',
+    description: 'Creative and innovative graphic design solutions',
+    image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
+  },
+  {
+    icon: Target,
+    title: 'Applications',
+    description: 'Mobile and web application development',
+    image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Websites',
+    description: 'Professional website design and development',
+    image: 'https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=800',
+  },
+];
 
 const ServicesSection: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+
+  const totalSlides = services.length;
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentIndex((index + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  const goToPrevious = useCallback(() => {
+    goToSlide(currentIndex - 1);
+  }, [currentIndex, goToSlide]);
+
+  const goToNext = useCallback(() => {
+    goToSlide(currentIndex + 1);
+  }, [currentIndex, goToSlide]);
+
+  useEffect(() => {
+    if (isAutoPlaying) {
+      autoPlayRef.current = setInterval(() => {
+        goToNext();
+      }, 5000);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlaying, goToNext]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      goToPrevious();
+      setIsAutoPlaying(false);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      goToNext();
+      setIsAutoPlaying(false);
+    }
+  }, [goToPrevious, goToNext]);
+
+  const getSlidePosition = (index: number) => {
+    const diff = (index - currentIndex + totalSlides) % totalSlides;
+    if (diff === 0) return 'center';
+    if (diff === 1 || diff === -2) return 'right';
+    return 'left';
+  };
+
   return (
     <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4">
@@ -24,101 +103,151 @@ const ServicesSection: React.FC = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="px-8"
+        <div
+          ref={carouselRef}
+          className="relative px-4 md:px-16"
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          role="region"
+          aria-label="Services carousel"
+          aria-roledescription="carousel"
         >
-          <Carousel
-            autoPlay={true}
-            autoPlayInterval={5000}
-            itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}
-            showDots={true}
-            showArrows={true}
-            className="w-full"
-          >
-            {[
-              {
-                icon: Users,
-                title: 'HR Solutions',
-                description: 'Complete human resource management including recruitment, payroll, and consultancy services.',
-                services: [
-                  'Staff Recruitment & Mass Placement',
-                  'HR Consultancy & Development',
-                  'Professional Employer Organization',
-                ],
-              },
-              {
-                icon: Target,
-                title: 'Manpower Solutions',
-                description: 'Flexible manpower supply and outsourced labor management for various industries.',
-                services: [
-                  'Manpower Supply',
-                  'Outsourced Labor Management',
-                  'Executive Search & Head Hunting',
-                ],
-              },
-              {
-                icon: TrendingUp,
-                title: 'Financial Solutions',
-                description: 'Soft financing options and savings solutions to support your business growth.',
-                services: [
-                  'Soft Financing',
-                  'Savings Programs',
-                  'Salary Survey & Analysis',
-                ],
-              },
-              {
-                icon: GraduationCap,
-                title: 'Training & Development',
-                description: 'Professional development programs to enhance workforce capabilities and career growth.',
-                services: [
-                  'Staff Training & Career Development',
-                  'Leadership Development Programs',
-                  'Skills Assessment & Certification',
-                ],
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                className="group bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:border-green-200 dark:hover:border-green-600 flex flex-col h-full"
-                variants={scaleIn}
-                whileHover={{
-                  y: -10,
-                  boxShadow:
-                    '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                }}
-              >
-                <motion.div
-                  className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors"
-                  whileHover={{ rotate: 5, scale: 1.1 }}
-                >
-                  <service.icon className="w-8 h-8 text-green-600 dark:text-green-400" />
-                </motion.div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  {service.description}
-                </p>
-                <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-1 mb-6 flex-grow">
-                  {service.services.map((item, idx) => (
-                    <li key={idx}>• {item}</li>
-                  ))}
-                </ul>
-                <motion.div whileHover={{ x: 5 }}>
-                  <Link
-                    to="/services"
-                    className="text-green-600 dark:text-green-400 font-semibold hover:text-green-700 dark:hover:text-green-300 flex items-center"
+          <div className="relative h-[400px] md:h-[500px] overflow-hidden">
+            <AnimatePresence initial={false} mode="sync">
+              {services.map((service, index) => {
+                const position = getSlidePosition(index);
+                const isCenter = position === 'center';
+                const isRight = position === 'right';
+                const isLeft = position === 'left';
+
+                let xOffset = 0;
+                let scale = 0.75;
+                let zIndex = 1;
+                let opacity = 0.6;
+
+                if (isCenter) {
+                  xOffset = 0;
+                  scale = 1;
+                  zIndex = 10;
+                  opacity = 1;
+                } else if (isRight) {
+                  xOffset = 65;
+                  scale = 0.75;
+                  zIndex = 5;
+                  opacity = 0.6;
+                } else if (isLeft) {
+                  xOffset = -65;
+                  scale = 0.75;
+                  zIndex = 5;
+                  opacity = 0.6;
+                }
+
+                return (
+                  <motion.div
+                    key={index}
+                    className="absolute left-1/2 top-1/2 w-[85%] md:w-[450px]"
+                    initial={false}
+                    animate={{
+                      x: `calc(-50% + ${xOffset}%)`,
+                      y: '-50%',
+                      scale,
+                      opacity,
+                      zIndex,
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${index + 1} of ${totalSlides}`}
+                    aria-hidden={!isCenter}
                   >
-                    Learn More <ArrowRight className="w-4 h-4 ml-1" />
-                  </Link>
-                </motion.div>
-              </motion.div>
+                    <div
+                      className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
+                      onClick={() => !isCenter && goToSlide(index)}
+                      style={{
+                        pointerEvents: isCenter ? 'auto' : 'auto',
+                      }}
+                    >
+                      <div className="aspect-[4/3] relative">
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      </div>
+
+                      <div className="absolute bottom-0 left-0 right-0 bg-gray-700/70 dark:bg-gray-800/70 backdrop-blur-sm px-6 py-4">
+                        <h3 className="text-2xl font-bold text-white mb-1">
+                          {service.title}
+                        </h3>
+                        {isCenter && (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="text-gray-200 text-sm"
+                          >
+                            {service.description}
+                          </motion.p>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+
+          <motion.button
+            onClick={() => {
+              goToPrevious();
+              setIsAutoPlaying(false);
+            }}
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+          </motion.button>
+
+          <motion.button
+            onClick={() => {
+              goToNext();
+              setIsAutoPlaying(false);
+            }}
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+          </motion.button>
+
+          <div className="flex justify-center mt-8 space-x-2" role="tablist" aria-label="Carousel navigation">
+            {services.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  goToSlide(index);
+                  setIsAutoPlaying(false);
+                }}
+                className={`w-3 h-3 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
+                  index === currentIndex
+                    ? 'bg-green-600 dark:bg-green-400 w-8'
+                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-current={index === currentIndex ? 'true' : 'false'}
+                role="tab"
+              />
             ))}
-          </Carousel>
-        </motion.div>
+          </div>
+        </div>
 
         <motion.div
           className="text-center mt-12"
@@ -133,7 +262,7 @@ const ServicesSection: React.FC = () => {
           >
             <Link
               to="/services"
-              className="bg-green-600 dark:bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors inline-flex items-center"
+              className="bg-green-600 dark:bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors inline-flex items-center focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
               View All Services
               <ArrowRight className="w-5 h-5 ml-2" />
