@@ -15,21 +15,27 @@ interface ServiceItem {
 const services: ServiceItem[] = [
   {
     icon: Users,
-    title: 'Designs',
-    description: 'Creative and innovative graphic design solutions',
-    image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
+    title: 'HR Solutions',
+    description: 'Complete human resource management including recruitment, payroll, and consultancy services',
+    image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
   {
     icon: Target,
-    title: 'Applications',
-    description: 'Mobile and web application development',
-    image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800',
+    title: 'Manpower Solutions',
+    description: 'Flexible manpower supply and outsourced labor management for various industries',
+    image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
   {
     icon: TrendingUp,
-    title: 'Websites',
-    description: 'Professional website design and development',
-    image: 'https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=800',
+    title: 'Financial Solutions',
+    description: 'Soft financing options and savings solutions to support your business growth',
+    image: 'https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=800',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Training & Development',
+    description: 'Professional development programs to enhance workforce capabilities and career growth',
+    image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
 ];
 
