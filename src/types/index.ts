@@ -27,6 +27,20 @@ export interface BlogPost {
   publishedAt: string;
   tags: string[];
   featured?: boolean;
+  status?: 'draft' | 'published';
+  sourceUrls?: string[];
+}
+
+export interface Suggestion {
+  id: string;
+  question: string;
+  suggested_title: string;
+  suggested_content: string;
+  source_urls: string[];
+  confidence: number;
+  status: 'pending' | 'accepted' | 'rejected';
+  created_by: string;
+  created_at: string;
 }
 
 export interface TeamMember {

@@ -53,21 +53,27 @@ const SuggestArticleModal: React.FC<SuggestArticleModalProps> = ({
     setSubmitError(null);
 
     try {
-      const { error } = await supabase.from('suggestions').insert([
-        {
-          title: data.title,
-          content: `${data.content}\n\n---\n\nReasoning: ${data.reasoning}`,
-          sources: sources.map(source => ({
-            title: source.title,
-            url: source.url,
-            similarity: source.similarity,
-          })),
-          status: 'pending',
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/suggest`;
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
         },
-      ]);
+        body: JSON.stringify({
+          question: originalQuery,
+          suggestedTitle: data.title,
+          suggestedContent: `${data.content}\n\n---\n\nReasoning: ${data.reasoning}`,
+          sourceUrls: sources.map(source => source.url),
+          confidence: sources.length > 0 ? sources.reduce((sum, s) => sum + s.similarity, 0) / sources.length : 0.0,
+          createdBy: 'user',
+        }),
+      });
 
-      if (error) {
-        throw error;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit suggestion');
       }
 
       setIsSubmitted(true);

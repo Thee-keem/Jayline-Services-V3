@@ -24,6 +24,12 @@ const Blog = lazy(() =>
 const BlogPost = lazy(() => 
   import('./pages/BlogPost').then(module => ({ default: module.default }))
 );
+const AdminSuggestions = lazy(() => 
+  import('./pages/admin/Suggestions').then(module => ({ default: module.default }))
+);
+const AdminBlogDrafts = lazy(() => 
+  import('./pages/admin/BlogDrafts').then(module => ({ default: module.default }))
+);
 
 // Enhanced loading component with skeleton
 const PageLoader = () => (
@@ -52,6 +58,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/admin/suggestions" element={<AdminSuggestions />} />
+          <Route path="/admin/blog-drafts" element={<AdminBlogDrafts />} />
         </Routes>
       </Suspense>
     </MainLayout>

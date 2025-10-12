@@ -387,7 +387,7 @@ const Services = () => {
                 {category.services.map((service, serviceIndex) => (
                   <motion.div
                     key={serviceIndex}
-                    className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+                    className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group"
                     variants={scaleIn}
                     whileHover={{
                       y: -5,

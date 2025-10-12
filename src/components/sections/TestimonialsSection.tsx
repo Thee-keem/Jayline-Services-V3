@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Star, Quote, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { Carousel } from '../ui';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { fadeInUp, scaleIn, staggerContainer } from '../../utils/animations';
 
@@ -93,16 +94,18 @@ const TestimonialsSection: React.FC = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isIntersecting ? 'visible' : 'hidden'}
+        <Carousel
+          autoPlay={true}
+          autoPlayInterval={7000}
+          itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}
+          className="w-full"
         >
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
               className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+              initial="hidden"
+              animate={isIntersecting ? 'visible' : 'hidden'}
               variants={scaleIn}
               whileHover={{
                 y: -5,
@@ -141,7 +144,7 @@ const TestimonialsSection: React.FC = () => {
               </motion.div>
             </motion.div>
           ))}
-        </motion.div>
+        </Carousel>
 
         <motion.div
           className="text-center mt-12"

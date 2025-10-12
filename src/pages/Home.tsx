@@ -10,6 +10,7 @@ import {
   TrendingUp,
   Shield,
   Target,
+  GraduationCap,
 } from 'lucide-react';
 
 import SEO from '../lib/seo';
@@ -18,6 +19,7 @@ import {
   AnimatedCounter,
   ParallaxSection,
   FloatingElements,
+  Carousel,
 } from '../components/ui';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import {
@@ -186,7 +188,13 @@ const Home = () => {
                 initial="hidden"
                 animate={servicesInView ? 'visible' : 'hidden'}
               >
-                {[
+                <Carousel
+                  autoPlay={true}
+                  autoPlayInterval={6000}
+                  itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}
+                  className="w-full"
+                >
+                  {[
                   {
                     icon: Users,
                     title: 'HR Solutions',
@@ -217,13 +225,23 @@ const Home = () => {
                       'Salary Survey & Analysis',
                     ],
                   },
+                  {
+                    icon: GraduationCap,
+                    title: 'Training & Development',
+                    description: 'Professional development programs to enhance workforce capabilities and career growth.',
+                    services: [
+                      'Staff Training & Career Development',
+                      'Leadership Development Programs',
+                      'Skills Assessment & Certification',
+                    ],
+                  },
                 ].map((service, index) => (
                   <motion.div
                     key={index}
-                    className="group bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:border-green-200 dark:hover:border-green-600"
+                    className="group bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:border-green-200 dark:hover:border-green-600 hover:scale-105"
                     variants={scaleIn}
                     whileHover={{
-                      y: -10,
+                      y: -5,
                       boxShadow:
                         '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                     }}
@@ -249,7 +267,7 @@ const Home = () => {
                       <Link
                         to="/services"
                         onClick={() => {
-                          const sectionId = index === 0 ? 'hr-solutions' : index === 1 ? 'manpower-employment-services' : 'financial-advisory-services';
+                          const sectionId = index === 0 ? 'hr-solutions' : index === 1 ? 'manpower-employment-services' : index === 2 ? 'financial-advisory-services' : 'training-development';
                           setTimeout(() => {
                             const element = document.getElementById(sectionId);
                             if (element) {
@@ -264,6 +282,7 @@ const Home = () => {
                     </motion.div>
                   </motion.div>
                 ))}
+                </Carousel>
               </motion.div>
 
               <motion.div
@@ -380,7 +399,7 @@ const Home = () => {
                       >
                         <motion.div
                           className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mr-4 flex-shrink-0"
-                          className="block border-2 border-green-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 dark:hover:bg-green-600 transition-colors text-center focus-visible-ring"
+                          whileHover={{ rotate: 5, scale: 1.1 }}
                         >
                           <item.icon className="w-6 h-6 text-green-600 dark:text-green-400" />
                         </motion.div>
@@ -432,7 +451,7 @@ const Home = () => {
                     >
                       <Link
                         to="/services"
-                        className="block border-2 border-green-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 dark:hover:bg-green-600 transition-colors text-center"
+                        className="block border-2 border-green-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 dark:hover:bg-green-600 transition-colors text-center focus-visible-ring"
                       >
                         View Our Services
                       </Link>

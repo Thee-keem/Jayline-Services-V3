@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Globe, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 import SEO from '../lib/seo';
 import {
@@ -147,12 +147,6 @@ const Contact = () => {
                         'P.O. Box 5322-00100, Nairobi',
                         'Kenya',
                       ],
-                    },
-                    {
-                      icon: Globe,
-                      title: 'Website',
-                      content: ['www.jaylineservice.co.ke'],
-                      isLink: true,
                     },
                     {
                       icon: Clock,

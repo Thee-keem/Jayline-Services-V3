@@ -14,7 +14,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 
-import { SuggestArticleModal } from './SuggestArticleModal';
+import SuggestArticleModal from './SuggestArticleModal';
 
 interface QAResponse {
   answer: string;
@@ -54,25 +54,37 @@ const AIChatWidget: React.FC = () => {
     setResponse(null);
 
     try {
-      const apiResponse = await fetch('/api/qa', {
+      // First, check if this is a FAQ-type query
+      const faqResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/qa`, {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ query: data.query }),
       });
 
-      if (!apiResponse.ok) {
+      if (!faqResponse.ok) {
         throw new Error('Failed to get response');
       }
 
-      const result: QAResponse = await apiResponse.json();
-      setResponse(result);
-      setShowSources(result.sources.length > 0);
+      const result: QAResponse = await faqResponse.json();
+      
+      // If confidence is too low, suggest live support instead
+      if (result.confidence < 0.6) {
+        setResponse({
+          answer: `I don't have enough specific information to answer that question confidently. For the best assistance with "${data.query}", I'd recommend connecting with our live support team who can provide personalized help.\n\nYou can reach us at:\n📞 +254 722 311 490\n📧 info@jaylineservice.co.ke\n\nOur team is available Monday-Friday 8:00 AM - 6:00 PM, Saturday 9:00 AM - 2:00 PM.`,
+          sources: [],
+          confidence: 0.0,
+        });
+      } else {
+        setResponse(result);
+        setShowSources(result.sources.length > 0);
+      }
     } catch (error) {
       console.error('Error querying AI:', error);
       setResponse({
-        answer: 'Sorry, I encountered an error. Please try again or contact us directly at +254 722 311 490.',
+        answer: 'Sorry, I encountered an error. Please contact our live support team directly at +254 722 311 490 or info@jaylineservice.co.ke for immediate assistance.',
         sources: [],
         confidence: 0,
       });
@@ -151,7 +163,10 @@ const AIChatWidget: React.FC = () => {
                   <div className="text-center text-gray-600 dark:text-gray-400 mb-4">
                     <MessageCircle className="w-12 h-12 mx-auto mb-2 text-green-600 dark:text-green-400" />
                     <p className="text-sm">
-                      Ask me anything about Jay Line Services!
+                      Ask me about our HR services, recruitment, or business solutions!
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                      For complex queries, I'll connect you with live support.
                     </p>
                   </div>
                 )}
@@ -239,15 +254,28 @@ const AIChatWidget: React.FC = () => {
                     </AnimatePresence>
 
                     {/* Suggest Article Button */}
-                    <motion.button
-                      onClick={() => setShowSuggestModal(true)}
-                      className="w-full bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-2 rounded-lg text-xs font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors flex items-center justify-center"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Lightbulb className="w-3 h-3 mr-1" />
-                      Suggest Article Update
-                    </motion.button>
+                    {response.confidence > 0.3 && (
+                      <motion.button
+                        onClick={() => setShowSuggestModal(true)}
+                        className="w-full bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-2 rounded-lg text-xs font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors flex items-center justify-center"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Lightbulb className="w-3 h-3 mr-1" />
+                        Suggest Article Update
+                      </motion.button>
+                    )}
+                    
+                    {response.confidence <= 0.3 && (
+                      <motion.a
+                        href="tel:+254722311490"
+                        className="w-full bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 p-2 rounded-lg text-xs font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors flex items-center justify-center"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        📞 Call Live Support
+                      </motion.a>
+                    )}
                   </motion.div>
                 )}
 
@@ -272,7 +300,7 @@ const AIChatWidget: React.FC = () => {
                   <div>
                     <textarea
                       {...register('query')}
-                      placeholder="Ask me anything about Jay Line Services..."
+                      placeholder="Ask about our HR services, recruitment, or business solutions..."
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus-visible-ring text-sm resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                       rows={2}
                       disabled={isLoading}

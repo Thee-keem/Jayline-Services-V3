@@ -9,3 +9,4 @@ export { default as LazyImage } from './LazyImage';
 export { default as SkeletonLoader } from './SkeletonLoader';
 export { default as PrimaryButton } from './PrimaryButton';
 export { default as SectionContainer } from './SectionContainer';
+export { default as Carousel } from './Carousel';
