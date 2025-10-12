@@ -63,7 +63,7 @@ const ServicesSection: React.FC = () => {
           ].map((service, index) => (
             <motion.div
               key={index}
-              className="group bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:border-green-200 dark:hover:border-green-600"
+              className="group bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:border-green-200 dark:hover:border-green-600 flex flex-col h-full"
               variants={scaleIn}
               whileHover={{
                 y: -10,
@@ -83,7 +83,7 @@ const ServicesSection: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 {service.description}
               </p>
-              <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-1 mb-6">
+              <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-1 mb-6 flex-grow">
                 {service.services.map((item, idx) => (
                   <li key={idx}>• {item}</li>
                 ))}
