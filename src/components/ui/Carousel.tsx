@@ -88,7 +88,7 @@ const Carousel: React.FC<CarouselProps> = ({
               className="flex-shrink-0 flex"
               style={{ width: `${100 / itemsToShow}%` }}
             >
-              <div className="px-2 w-full flex">{child}</div>
+              <div className="px-4 w-full flex">{child}</div>
             </div>
           ))}
         </motion.div>

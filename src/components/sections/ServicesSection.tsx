@@ -28,6 +28,7 @@ const ServicesSection: React.FC = () => {
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
+          className="px-8"
         >
           <Carousel
             autoPlay={true}
