@@ -19,7 +19,6 @@ import {
   AnimatedCounter,
   ParallaxSection,
   FloatingElements,
-  Carousel,
 } from '../components/ui';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import {
@@ -188,13 +187,7 @@ const Home = () => {
                 initial="hidden"
                 animate={servicesInView ? 'visible' : 'hidden'}
               >
-                <Carousel
-                  autoPlay={true}
-                  autoPlayInterval={6000}
-                  itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}
-                  className="w-full"
-                >
-                  {[
+                {[
                   {
                     icon: Users,
                     title: 'HR Solutions',
@@ -225,23 +218,13 @@ const Home = () => {
                       'Salary Survey & Analysis',
                     ],
                   },
-                  {
-                    icon: GraduationCap,
-                    title: 'Training & Development',
-                    description: 'Professional development programs to enhance workforce capabilities and career growth.',
-                    services: [
-                      'Staff Training & Career Development',
-                      'Leadership Development Programs',
-                      'Skills Assessment & Certification',
-                    ],
-                  },
                 ].map((service, index) => (
                   <motion.div
                     key={index}
-                    className="group bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:border-green-200 dark:hover:border-green-600 hover:scale-105"
+                    className="group bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:border-green-200 dark:hover:border-green-600 flex flex-col h-full"
                     variants={scaleIn}
                     whileHover={{
-                      y: -5,
+                      y: -10,
                       boxShadow:
                         '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                     }}
@@ -258,7 +241,7 @@ const Home = () => {
                     <p className="text-gray-600 dark:text-gray-300 mb-4">
                       {service.description}
                     </p>
-                    <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-1 mb-6">
+                    <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-1 mb-6 flex-grow">
                       {service.services.map((item, idx) => (
                         <li key={idx}>• {item}</li>
                       ))}
@@ -267,7 +250,7 @@ const Home = () => {
                       <Link
                         to="/services"
                         onClick={() => {
-                          const sectionId = index === 0 ? 'hr-solutions' : index === 1 ? 'manpower-employment-services' : index === 2 ? 'financial-advisory-services' : 'training-development';
+                          const sectionId = index === 0 ? 'hr-solutions' : index === 1 ? 'manpower-employment-services' : 'financial-advisory-services';
                           setTimeout(() => {
                             const element = document.getElementById(sectionId);
                             if (element) {
@@ -282,7 +265,6 @@ const Home = () => {
                     </motion.div>
                   </motion.div>
                 ))}
-                </Carousel>
               </motion.div>
 
               <motion.div
