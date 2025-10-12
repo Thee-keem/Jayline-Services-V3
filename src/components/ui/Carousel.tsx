@@ -76,7 +76,7 @@ const Carousel: React.FC<CarouselProps> = ({
       {/* Carousel Container */}
       <div className="overflow-hidden">
         <motion.div
-          className="flex"
+          className="flex items-stretch"
           animate={{
             x: `-${(currentIndex * 100) / itemsToShow}%`,
           }}
@@ -85,10 +85,10 @@ const Carousel: React.FC<CarouselProps> = ({
           {children.map((child, index) => (
             <div
               key={index}
-              className="flex-shrink-0"
+              className="flex-shrink-0 flex"
               style={{ width: `${100 / itemsToShow}%` }}
             >
-              <div className="px-2">{child}</div>
+              <div className="px-2 w-full flex">{child}</div>
             </div>
           ))}
         </motion.div>
