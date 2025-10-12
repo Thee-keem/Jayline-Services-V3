@@ -10,6 +10,7 @@ interface ServiceItem {
   title: string;
   description: string;
   image: string;
+  link: string;
 }
 
 const services: ServiceItem[] = [
@@ -18,24 +19,28 @@ const services: ServiceItem[] = [
     title: 'HR Solutions',
     description: 'Complete human resource management including recruitment, payroll, and consultancy services',
     image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#hr-solutions',
   },
   {
     icon: Target,
     title: 'Manpower Solutions',
     description: 'Flexible manpower supply and outsourced labor management for various industries',
     image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#manpower-employment-services',
   },
   {
     icon: TrendingUp,
     title: 'Financial Solutions',
     description: 'Soft financing options and savings solutions to support your business growth',
     image: 'https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#financial-advisory-services',
   },
   {
     icon: GraduationCap,
     title: 'Training & Development',
     description: 'Professional development programs to enhance workforce capabilities and career growth',
     image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#training-development',
   },
 ];
 
@@ -144,7 +149,7 @@ const ServicesSection: React.FC = () => {
                 } else if (isLeft) {
                   xOffset = -65;
                   scale = 0.75;
-                  zIndex = 5;
+                  zIndex = 1;
                   opacity = 0.6;
                 }
 
@@ -170,11 +175,17 @@ const ServicesSection: React.FC = () => {
                     aria-label={`${index + 1} of ${totalSlides}`}
                     aria-hidden={!isCenter}
                   >
-                    <div
-                      className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
-                      onClick={() => !isCenter && goToSlide(index)}
+                    <Link
+                      to={isCenter ? service.link : '#'}
+                      onClick={(e) => {
+                        if (!isCenter) {
+                          e.preventDefault();
+                          goToSlide(index);
+                        }
+                      }}
+                      className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer block"
                       style={{
-                        pointerEvents: isCenter ? 'auto' : 'auto',
+                        pointerEvents: isLeft ? 'none' : 'auto',
                       }}
                     >
                       <div className="aspect-[4/3] relative">
@@ -201,7 +212,7 @@ const ServicesSection: React.FC = () => {
                           </motion.p>
                         )}
                       </div>
-                    </div>
+                    </Link>
                   </motion.div>
                 );
               })}
