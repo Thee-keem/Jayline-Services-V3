@@ -181,6 +181,16 @@ const ServicesSection: React.FC = () => {
                         if (!isCenter) {
                           e.preventDefault();
                           goToSlide(index);
+                        } else {
+                          const hash = service.link.split('#')[1];
+                          if (hash) {
+                            setTimeout(() => {
+                              const element = document.getElementById(hash);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }
+                            }, 100);
+                          }
                         }
                       }}
                       className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer block"
