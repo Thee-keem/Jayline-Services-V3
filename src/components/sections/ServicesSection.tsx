@@ -99,18 +99,18 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-12">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="w-full h-full flex flex-col justify-center py-8">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col justify-center flex-1">
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
         >
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
             Our Core Services
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             We offer comprehensive HR and manpower solutions designed to meet your business needs
           </p>
         </motion.div>
@@ -124,7 +124,7 @@ const ServicesSection: React.FC = () => {
           aria-label="Services carousel"
           aria-roledescription="carousel"
         >
-          <div className="relative h-[400px] md:h-[500px] overflow-hidden">
+          <div className="relative h-[350px] md:h-[420px] overflow-hidden">
             <AnimatePresence initial={false} mode="sync">
               {services.map((service, index) => {
                 const position = getSlidePosition(index);
@@ -262,7 +262,7 @@ const ServicesSection: React.FC = () => {
             <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-300" />
           </motion.button>
 
-          <div className="flex justify-center mt-8 space-x-2" role="tablist" aria-label="Carousel navigation">
+          <div className="flex justify-center mt-6 space-x-2" role="tablist" aria-label="Carousel navigation">
             {services.map((_, index) => (
               <button
                 key={index}
@@ -284,7 +284,7 @@ const ServicesSection: React.FC = () => {
         </div>
 
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-8"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
