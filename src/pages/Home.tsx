@@ -45,18 +45,19 @@ const Home = () => {
         ]}
       />
 
-      <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
+      <div className="snap-y snap-mandatory h-screen overflow-y-auto scrollbar-hide">
         {/* Hero Section */}
         <section
           ref={heroRef}
           className="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-300 snap-start snap-always"
-          style={{
-            backgroundImage: 'url(/fallback.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
-          }}
         >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url(/fallback.jpg)',
+              willChange: 'transform',
+            }}
+          />
           <div className="absolute inset-0 bg-black/50"></div>
           <FloatingElements />
           <div className="max-w-7xl mx-auto px-4 relative z-10">

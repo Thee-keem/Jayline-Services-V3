@@ -40,12 +40,16 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
           ui: ['framer-motion', 'lucide-react'],
+          supabase: ['@supabase/supabase-js'],
+          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
         },
       },
     },
     target: 'es2020',
     minify: 'esbuild',
     chunkSizeWarningLimit: 500,
+    cssCodeSplit: true,
+    sourcemap: false,
   },
   server: {
     port: 3000,

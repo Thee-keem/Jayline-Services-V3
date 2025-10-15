@@ -5,31 +5,16 @@ import { motion } from 'framer-motion';
 import MainLayout from './layouts/MainLayout';
 import { useScrollToTop } from './hooks/useScrollToTop';
 
-// Preload critical pages and lazy load others
-const Home = lazy(() => 
-  import('./pages/Home').then(module => ({ default: module.default }))
-);
-const About = lazy(() => 
-  import('./pages/About').then(module => ({ default: module.default }))
-);
-const Services = lazy(() => 
-  import('./pages/Services').then(module => ({ default: module.default }))
-);
-const Contact = lazy(() => 
-  import('./pages/Contact').then(module => ({ default: module.default }))
-);
-const Blog = lazy(() => 
-  import('./pages/Blog').then(module => ({ default: module.default }))
-);
-const BlogPost = lazy(() => 
-  import('./pages/BlogPost').then(module => ({ default: module.default }))
-);
-const AdminSuggestions = lazy(() => 
-  import('./pages/admin/Suggestions').then(module => ({ default: module.default }))
-);
-const AdminBlogDrafts = lazy(() => 
-  import('./pages/admin/BlogDrafts').then(module => ({ default: module.default }))
-);
+// Eagerly load Home page for faster initial load
+import Home from './pages/Home';
+// Lazy load non-critical pages
+const About = lazy(() => import('./pages/About'));
+const Services = lazy(() => import('./pages/Services'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const AdminSuggestions = lazy(() => import('./pages/admin/Suggestions'));
+const AdminBlogDrafts = lazy(() => import('./pages/admin/BlogDrafts'));
 
 // Enhanced loading component with skeleton
 const PageLoader = () => (
