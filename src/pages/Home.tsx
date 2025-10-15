@@ -15,6 +15,7 @@ import {
   FloatingElements,
 } from '../components/ui';
 import { ServicesSection } from '../components/sections';
+import { Footer } from '../components/layout';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import {
   fadeInUp,
@@ -164,27 +165,27 @@ const Home = () => {
         {/* Why Choose Us */}
         <section
           ref={whyChooseRef}
-          className="min-h-screen flex flex-col snap-start snap-always bg-gradient-to-br from-gray-50 to-green-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300"
+          className="min-h-screen flex flex-col snap-start snap-always bg-gray-900 dark:bg-gray-900 transition-colors duration-300"
         >
-          <div className="flex-1 flex items-center py-12">
+          <div className="flex-1 flex items-center py-8">
             <div className="max-w-7xl mx-auto px-4 w-full">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
+              <div className="grid lg:grid-cols-2 gap-6 items-start">
                 <motion.div
                   initial="hidden"
                   animate={whyChooseInView ? 'visible' : 'hidden'}
                   variants={fadeInLeft}
                 >
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
                     Why Jay Line Services is Your Best Choice
                   </h2>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6">
+                  <p className="text-base md:text-lg text-gray-300 mb-5">
                     We combine years of experience with innovative approaches to
                     deliver exceptional HR and manpower solutions that drive
                     business success.
                   </p>
 
                   <motion.div
-                    className="space-y-4"
+                    className="space-y-3"
                     variants={staggerContainer}
                     initial="hidden"
                     animate={whyChooseInView ? 'visible' : 'hidden'}
@@ -217,16 +218,16 @@ const Home = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <motion.div
-                          className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mr-4 flex-shrink-0"
+                          className="w-10 h-10 bg-green-900/30 rounded-lg flex items-center justify-center mr-3 flex-shrink-0"
                           whileHover={{ rotate: 5, scale: 1.1 }}
                         >
-                          <item.icon className="w-6 h-6 text-green-600 dark:text-green-400" />
+                          <item.icon className="w-5 h-5 text-green-400" />
                         </motion.div>
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                          <h3 className="text-base font-semibold text-white mb-0.5">
                             {item.title}
                           </h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                          <p className="text-sm text-gray-300">
                             {item.description}
                           </p>
                         </div>
@@ -236,7 +237,7 @@ const Home = () => {
                 </motion.div>
 
                 <motion.div
-                  className="bg-green-600 dark:bg-green-700 text-white p-6 rounded-2xl transition-colors duration-300"
+                  className="bg-green-600 text-white p-6 rounded-2xl transition-colors duration-300"
                   initial="hidden"
                   animate={whyChooseInView ? 'visible' : 'hidden'}
                   variants={fadeInRight}
@@ -245,10 +246,10 @@ const Home = () => {
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                   }}
                 >
-                  <h3 className="text-xl font-bold mb-4">
+                  <h3 className="text-xl font-bold mb-3">
                     Ready to Get Started?
                   </h3>
-                  <p className="text-green-100 dark:text-green-200 mb-4 text-sm">
+                  <p className="text-green-100 mb-4 text-sm">
                     Contact us today for a free consultation and discover how we
                     can help your business achieve its goals.
                   </p>
@@ -270,7 +271,7 @@ const Home = () => {
                     >
                       <Link
                         to="/services"
-                        className="block border-2 border-green-400 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-green-500 dark:hover:bg-green-600 transition-colors text-center focus-visible-ring text-sm"
+                        className="block border-2 border-green-400 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-green-500 transition-colors text-center focus-visible-ring text-sm"
                       >
                         View Our Services
                       </Link>
@@ -280,6 +281,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+          <Footer />
         </section>
       </div>
     </>

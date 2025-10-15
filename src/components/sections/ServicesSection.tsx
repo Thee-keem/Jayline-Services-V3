@@ -243,12 +243,12 @@ const ServicesSection: React.FC = () => {
               goToPrevious();
               setIsAutoPlaying(false);
             }}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-2 md:p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-600 dark:text-gray-300" />
           </motion.button>
 
           <motion.button
@@ -256,12 +256,12 @@ const ServicesSection: React.FC = () => {
               goToNext();
               setIsAutoPlaying(false);
             }}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-2 md:p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-600 dark:text-gray-300" />
           </motion.button>
 
           <div className="flex justify-center mt-6 space-x-2" role="tablist" aria-label="Carousel navigation">
