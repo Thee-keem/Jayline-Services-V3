@@ -93,15 +93,16 @@ const ServicesSection: React.FC = () => {
   const getSlidePosition = (index: number) => {
     const diff = (index - currentIndex + totalSlides) % totalSlides;
     if (diff === 0) return 'center';
-    if (diff === 1 || diff === -2) return 'right';
-    return 'left';
+    if (diff === 1) return 'right';
+    if (diff === totalSlides - 1) return 'left';
+    return 'hidden';
   };
 
   return (
-    <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section className="w-full py-12">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -130,6 +131,7 @@ const ServicesSection: React.FC = () => {
                 const isCenter = position === 'center';
                 const isRight = position === 'right';
                 const isLeft = position === 'left';
+                const isHidden = position === 'hidden';
 
                 let xOffset = 0;
                 let scale = 0.75;
@@ -151,6 +153,11 @@ const ServicesSection: React.FC = () => {
                   scale = 0.75;
                   zIndex = 1;
                   opacity = 0.6;
+                } else if (isHidden) {
+                  xOffset = -130;
+                  scale = 0.6;
+                  zIndex = 0;
+                  opacity = 0;
                 }
 
                 return (

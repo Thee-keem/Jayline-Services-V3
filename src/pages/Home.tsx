@@ -12,8 +12,6 @@ import {
 import SEO from '../lib/seo';
 import {
   AnimatedText,
-  AnimatedCounter,
-  ParallaxSection,
   FloatingElements,
 } from '../components/ui';
 import { ServicesSection } from '../components/sections';
@@ -22,14 +20,11 @@ import {
   fadeInUp,
   fadeInLeft,
   fadeInRight,
-  scaleIn,
   staggerContainer,
 } from '../utils/animations';
 
 const Home = () => {
   const { ref: heroRef, isIntersecting: heroInView } =
-    useIntersectionObserver();
-  const { ref: statsRef, isIntersecting: statsInView } =
     useIntersectionObserver();
   const { ref: whyChooseRef, isIntersecting: whyChooseInView } =
     useIntersectionObserver();
@@ -49,26 +44,32 @@ const Home = () => {
         ]}
       />
 
-      <div>
+      <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
         {/* Hero Section */}
         <section
           ref={heroRef}
-          className="relative bg-gradient-to-r from-green-50 to-green-100 dark:from-gray-800 dark:to-gray-700 py-20 overflow-hidden transition-colors duration-300"
+          className="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-300 snap-start snap-always"
+          style={{
+            backgroundImage: 'url(/fallback.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+          }}
         >
-          <div className="absolute inset-0 bg-green-600 dark:bg-green-700 opacity-5"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
           <FloatingElements />
-          <div className="max-w-7xl mx-auto px-4 relative">
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div
                 initial="hidden"
                 animate={heroInView ? 'visible' : 'hidden'}
                 variants={fadeInLeft}
               >
-                <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                   <AnimatedText text="Your Trusted HR Partner in Kenya" />
                 </h1>
                 <motion.p
-                  className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed"
+                  className="text-xl text-gray-100 mb-8 leading-relaxed"
                   variants={fadeInUp}
                   transition={{ delay: 0.2 }}
                 >
@@ -86,7 +87,7 @@ const Home = () => {
                     >
                       <Link
                         to="/services"
-                        className="bg-green-600 dark:bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors flex items-center justify-center w-full"
+                        className="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center w-full shadow-lg"
                       >
                         Explore Our Services
                         <ArrowRight className="w-5 h-5 ml-2" />
@@ -98,7 +99,7 @@ const Home = () => {
                     >
                       <Link
                         to="/contact"
-                        className="border-2 border-green-600 dark:border-green-500 text-green-600 dark:text-green-400 px-8 py-4 rounded-lg font-semibold hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors flex items-center justify-center w-full"
+                        className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 backdrop-blur-sm transition-colors flex items-center justify-center w-full shadow-lg"
                       >
                         Get Free Consultation
                       </Link>
@@ -113,7 +114,7 @@ const Home = () => {
                 variants={fadeInRight}
               >
                 <motion.div
-                  className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl transition-colors duration-300"
+                  className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl transition-colors duration-300"
                   whileHover={{
                     y: -10,
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
@@ -143,7 +144,7 @@ const Home = () => {
                         transition={{ duration: 0.2 }}
                       >
                         <CheckCircle className="w-6 h-6 text-green-500 mr-3" />
-                        <span className="text-gray-700 dark:text-gray-300">
+                        <span className="text-gray-800 dark:text-gray-300">
                           {text}
                         </span>
                       </motion.div>
@@ -156,47 +157,15 @@ const Home = () => {
         </section>
 
         {/* Key Services Preview */}
-        <ServicesSection />
-
-        {/* Stats Section */}
-        <section
-          ref={statsRef}
-          className="py-20 bg-green-50 dark:bg-gray-800 transition-colors duration-300"
-        >
-          <div className="max-w-7xl mx-auto px-4">
-            <motion.div
-              className="grid md:grid-cols-4 gap-8 text-center"
-              variants={staggerContainer}
-              initial="hidden"
-              animate={statsInView ? 'visible' : 'hidden'}
-            >
-              {[
-                { number: 15, suffix: '+', label: 'Years Experience' },
-                { number: 500, suffix: '+', label: 'Successful Placements' },
-                { number: 100, suffix: '+', label: 'Corporate Clients' },
-                { number: 98, suffix: '%', label: 'Client Satisfaction' },
-              ].map((stat, index) => (
-                <motion.div key={index} variants={scaleIn}>
-                  <AnimatedCounter
-                    end={stat.number}
-                    suffix={stat.suffix}
-                    className="text-4xl font-bold text-green-600 dark:text-green-400 mb-2"
-                  />
-                  <div className="text-gray-700 dark:text-gray-300 font-medium">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
+        <div className="min-h-screen flex items-center justify-center snap-start snap-always bg-white dark:bg-gray-900 transition-colors duration-300">
+          <ServicesSection />
+        </div>
 
         {/* Why Choose Us */}
-        <ParallaxSection speed={0.2}>
-          <section
-            ref={whyChooseRef}
-            className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300"
-          >
+        <section
+          ref={whyChooseRef}
+          className="min-h-screen flex items-center justify-center snap-start snap-always bg-gradient-to-br from-gray-50 to-green-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300 py-20"
+        >
             <div className="max-w-7xl mx-auto px-4">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <motion.div
@@ -310,7 +279,6 @@ const Home = () => {
               </div>
             </div>
           </section>
-        </ParallaxSection>
       </div>
     </>
   );

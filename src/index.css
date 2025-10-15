@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scroll-snap-type: y mandatory;
+}
+
 /* Custom prose styles for blog content */
 .prose-green {
   --tw-prose-links: theme('colors.green.600');
