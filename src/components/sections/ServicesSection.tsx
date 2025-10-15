@@ -124,7 +124,7 @@ const ServicesSection: React.FC = () => {
           aria-label="Services carousel"
           aria-roledescription="carousel"
         >
-          <div className="relative h-[350px] md:h-[420px] overflow-hidden">
+          <div className="relative h-[350px] md:h-[420px]">
             <AnimatePresence initial={false} mode="sync">
               {services.map((service, index) => {
                 const position = getSlidePosition(index);
@@ -134,9 +134,9 @@ const ServicesSection: React.FC = () => {
                 const isHidden = position === 'hidden';
 
                 let xOffset = 0;
-                let scale = 0.75;
+                let scale = 0.85;
                 let zIndex = 1;
-                let opacity = 0.6;
+                let opacity = 0.7;
 
                 if (isCenter) {
                   xOffset = 0;
@@ -144,15 +144,15 @@ const ServicesSection: React.FC = () => {
                   zIndex = 10;
                   opacity = 1;
                 } else if (isRight) {
-                  xOffset = 65;
-                  scale = 0.75;
+                  xOffset = 75;
+                  scale = 0.85;
                   zIndex = 5;
-                  opacity = 0.6;
+                  opacity = 0.7;
                 } else if (isLeft) {
-                  xOffset = -65;
-                  scale = 0.75;
-                  zIndex = 1;
-                  opacity = 0.6;
+                  xOffset = -75;
+                  scale = 0.85;
+                  zIndex = 5;
+                  opacity = 0.7;
                 } else if (isHidden) {
                   xOffset = -130;
                   scale = 0.6;
@@ -200,15 +200,19 @@ const ServicesSection: React.FC = () => {
                           }
                         }
                       }}
-                      className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer block"
+                      className={`relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer block ${
+                        !isCenter ? 'pointer-events-auto' : ''
+                      }`}
                       style={{
-                        pointerEvents: isLeft ? 'none' : 'auto',
+                        pointerEvents: 'auto',
                       }}
                     >
                       <div className="aspect-[4/3] relative">
                         <img
                           src={service.image}
                           alt={service.title}
+                          loading={isCenter ? 'eager' : 'lazy'}
+                          decoding="async"
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -241,12 +245,12 @@ const ServicesSection: React.FC = () => {
               goToPrevious();
               setIsAutoPlaying(false);
             }}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-2 md:p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-600 dark:text-gray-300" />
           </motion.button>
 
           <motion.button
@@ -254,12 +258,12 @@ const ServicesSection: React.FC = () => {
               goToNext();
               setIsAutoPlaying(false);
             }}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 shadow-lg rounded-full p-2 md:p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-600 dark:text-gray-300" />
           </motion.button>
 
           <div className="flex justify-center mt-6 space-x-2" role="tablist" aria-label="Carousel navigation">
