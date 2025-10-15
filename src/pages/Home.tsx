@@ -15,7 +15,6 @@ import {
   FloatingElements,
 } from '../components/ui';
 import { ServicesSection } from '../components/sections';
-import { Footer } from '../components/layout';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import {
   fadeInUp,
@@ -281,7 +280,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <Footer />
         </section>
       </div>
     </>

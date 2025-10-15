@@ -124,7 +124,7 @@ const ServicesSection: React.FC = () => {
           aria-label="Services carousel"
           aria-roledescription="carousel"
         >
-          <div className="relative h-[350px] md:h-[420px] overflow-hidden">
+          <div className="relative h-[350px] md:h-[420px]">
             <AnimatePresence initial={false} mode="sync">
               {services.map((service, index) => {
                 const position = getSlidePosition(index);
@@ -134,9 +134,9 @@ const ServicesSection: React.FC = () => {
                 const isHidden = position === 'hidden';
 
                 let xOffset = 0;
-                let scale = 0.75;
+                let scale = 0.85;
                 let zIndex = 1;
-                let opacity = 0.6;
+                let opacity = 0.7;
 
                 if (isCenter) {
                   xOffset = 0;
@@ -144,15 +144,15 @@ const ServicesSection: React.FC = () => {
                   zIndex = 10;
                   opacity = 1;
                 } else if (isRight) {
-                  xOffset = 65;
-                  scale = 0.75;
+                  xOffset = 75;
+                  scale = 0.85;
                   zIndex = 5;
-                  opacity = 0.6;
+                  opacity = 0.7;
                 } else if (isLeft) {
-                  xOffset = -65;
-                  scale = 0.75;
-                  zIndex = 1;
-                  opacity = 0.6;
+                  xOffset = -75;
+                  scale = 0.85;
+                  zIndex = 5;
+                  opacity = 0.7;
                 } else if (isHidden) {
                   xOffset = -130;
                   scale = 0.6;
@@ -200,9 +200,11 @@ const ServicesSection: React.FC = () => {
                           }
                         }
                       }}
-                      className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer block"
+                      className={`relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer block ${
+                        !isCenter ? 'pointer-events-auto' : ''
+                      }`}
                       style={{
-                        pointerEvents: isLeft ? 'none' : 'auto',
+                        pointerEvents: 'auto',
                       }}
                     >
                       <div className="aspect-[4/3] relative">
