@@ -10,6 +10,7 @@ interface ServiceItem {
   title: string;
   description: string;
   image: string;
+  link: string;
 }
 
 const services: ServiceItem[] = [
@@ -18,24 +19,28 @@ const services: ServiceItem[] = [
     title: 'HR Solutions',
     description: 'Complete human resource management including recruitment, payroll, and consultancy services',
     image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#hr-solutions',
   },
   {
     icon: Target,
     title: 'Manpower Solutions',
     description: 'Flexible manpower supply and outsourced labor management for various industries',
     image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#manpower-employment-services',
   },
   {
     icon: TrendingUp,
     title: 'Financial Solutions',
     description: 'Soft financing options and savings solutions to support your business growth',
     image: 'https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#financial-advisory-services',
   },
   {
     icon: GraduationCap,
     title: 'Training & Development',
     description: 'Professional development programs to enhance workforce capabilities and career growth',
     image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800',
+    link: '/services#training-development',
   },
 ];
 
@@ -88,23 +93,24 @@ const ServicesSection: React.FC = () => {
   const getSlidePosition = (index: number) => {
     const diff = (index - currentIndex + totalSlides) % totalSlides;
     if (diff === 0) return 'center';
-    if (diff === 1 || diff === -2) return 'right';
-    return 'left';
+    if (diff === 1) return 'right';
+    if (diff === totalSlides - 1) return 'left';
+    return 'hidden';
   };
 
   return (
-    <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="w-full h-full flex flex-col justify-center py-8">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col justify-center flex-1">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
         >
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
             Our Core Services
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             We offer comprehensive HR and manpower solutions designed to meet your business needs
           </p>
         </motion.div>
@@ -118,13 +124,14 @@ const ServicesSection: React.FC = () => {
           aria-label="Services carousel"
           aria-roledescription="carousel"
         >
-          <div className="relative h-[400px] md:h-[500px] overflow-hidden">
+          <div className="relative h-[350px] md:h-[420px] overflow-hidden">
             <AnimatePresence initial={false} mode="sync">
               {services.map((service, index) => {
                 const position = getSlidePosition(index);
                 const isCenter = position === 'center';
                 const isRight = position === 'right';
                 const isLeft = position === 'left';
+                const isHidden = position === 'hidden';
 
                 let xOffset = 0;
                 let scale = 0.75;
@@ -144,8 +151,13 @@ const ServicesSection: React.FC = () => {
                 } else if (isLeft) {
                   xOffset = -65;
                   scale = 0.75;
-                  zIndex = 5;
+                  zIndex = 1;
                   opacity = 0.6;
+                } else if (isHidden) {
+                  xOffset = -130;
+                  scale = 0.6;
+                  zIndex = 0;
+                  opacity = 0;
                 }
 
                 return (
@@ -170,11 +182,27 @@ const ServicesSection: React.FC = () => {
                     aria-label={`${index + 1} of ${totalSlides}`}
                     aria-hidden={!isCenter}
                   >
-                    <div
-                      className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
-                      onClick={() => !isCenter && goToSlide(index)}
+                    <Link
+                      to={isCenter ? service.link : '#'}
+                      onClick={(e) => {
+                        if (!isCenter) {
+                          e.preventDefault();
+                          goToSlide(index);
+                        } else {
+                          const hash = service.link.split('#')[1];
+                          if (hash) {
+                            setTimeout(() => {
+                              const element = document.getElementById(hash);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }
+                            }, 100);
+                          }
+                        }
+                      }}
+                      className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer block"
                       style={{
-                        pointerEvents: isCenter ? 'auto' : 'auto',
+                        pointerEvents: isLeft ? 'none' : 'auto',
                       }}
                     >
                       <div className="aspect-[4/3] relative">
@@ -201,7 +229,7 @@ const ServicesSection: React.FC = () => {
                           </motion.p>
                         )}
                       </div>
-                    </div>
+                    </Link>
                   </motion.div>
                 );
               })}
@@ -234,7 +262,7 @@ const ServicesSection: React.FC = () => {
             <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-300" />
           </motion.button>
 
-          <div className="flex justify-center mt-8 space-x-2" role="tablist" aria-label="Carousel navigation">
+          <div className="flex justify-center mt-6 space-x-2" role="tablist" aria-label="Carousel navigation">
             {services.map((_, index) => (
               <button
                 key={index}
@@ -256,7 +284,7 @@ const ServicesSection: React.FC = () => {
         </div>
 
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-8"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}

@@ -270,28 +270,17 @@ const Services = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative bg-gradient-to-r from-green-600 to-green-700 dark:from-green-700 dark:to-green-800 text-white py-20 overflow-hidden transition-colors duration-300"
+        className="relative bg-gradient-to-r from-green-600 to-green-700 dark:from-green-700 dark:to-green-800 text-white py-12 overflow-hidden transition-colors duration-300"
       >
-        <FloatingElements />
         <div className="max-w-7xl mx-auto px-4 text-center relative">
           <motion.div
             initial="hidden"
             animate={heroInView ? 'visible' : 'hidden'}
-            variants={staggerContainer}
+            variants={fadeInUp}
           >
-            <motion.div variants={fadeInUp}>
-              <h1 className="text-5xl font-bold mb-6">
-                <AnimatedText text="Our Services" />
-              </h1>
-            </motion.div>
-            <motion.p
-              className="text-xl text-green-100 max-w-3xl mx-auto"
-              variants={fadeInUp}
-              transition={{ delay: 0.3 }}
-            >
-              Comprehensive human resource and manpower solutions designed to
-              drive your business success
-            </motion.p>
+            <h1 className="text-4xl font-bold">
+              Our Services
+            </h1>
           </motion.div>
         </div>
       </section>
@@ -299,21 +288,6 @@ const Services = () => {
       {/* Services Overview */}
       <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-          >
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Complete HR & Manpower Solutions
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              From recruitment to training, financing to consulting - we provide
-              end-to-end solutions for all your human resource and business
-              needs
-            </p>
-          </motion.div>
 
           {/* Service Categories */}
           {serviceCategories.map((category, index) => (
@@ -327,34 +301,26 @@ const Services = () => {
               transition={{ delay: index * 0.2 }}
             >
               <motion.div
-                className="bg-green-50 dark:bg-gray-800 rounded-2xl p-8 mb-8 transition-colors duration-300"
+                className="bg-green-50 dark:bg-gray-800 rounded-2xl p-6 mb-8 transition-colors duration-300"
                 variants={fadeInUp}
                 whileHover={{
                   scale: 1.01,
                   boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
                 }}
               >
-                <div className="flex items-center mb-6">
+                <div className="flex items-center mb-4">
                   <motion.div
-                    className="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center mr-6"
+                    className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center mr-4"
                     whileHover={{ rotate: 5, scale: 1.1 }}
                   >
-                    <category.icon className="w-8 h-8 text-white" />
+                    <category.icon className="w-6 h-6 text-white" />
                   </motion.div>
-                  <div>
-                    <motion.h3
-                      className="text-3xl font-bold text-gray-900 dark:text-white mb-2"
-                      variants={fadeInUp}
-                    >
-                      {category.title}
-                    </motion.h3>
-                    <motion.p
-                      className="text-lg text-gray-600 dark:text-gray-300"
-                      variants={fadeInUp}
-                    >
-                      {category.description}
-                    </motion.p>
-                  </div>
+                  <motion.h3
+                    className="text-2xl font-bold text-gray-900 dark:text-white"
+                    variants={fadeInUp}
+                  >
+                    {category.title}
+                  </motion.h3>
                 </div>
 
                 {/* Category Benefits */}
